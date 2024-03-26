@@ -5,6 +5,9 @@
   # install ffmpeg
   sudo apt install ffmpeg
 
+  # create env
+  touch .env
+
   # activate venv
   source .venv/bin/activate
 
@@ -12,7 +15,7 @@
   pip install -r requirements.txt
 
   # start server
-  uvicorn main:app --reload
+  ./start_dev
 
   # deactivate venv
   deactivate
