@@ -2,6 +2,9 @@
   # install venv
   python3 -m venv .venv
 
+  # install ffmpeg
+  sudo apt install ffmpeg
+
   # activate venv
   source .venv/bin/activate
 
