@@ -7,9 +7,25 @@ from models import Token
 from auth import fake_users_db, create_access_token, authenticate_user, timedelta, ACCESS_TOKEN_EXPIRE_MINUTES
 from shazord import get_shazamio, validate_file, Shazam
 
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+
+origins = [
+    "http://localhost:3000",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["post"],
+)
+
+@app.get('/')
+def get():
+  return 'hello'
 
 @app.post('/token')
 async def login_for_access_token(
@@ -41,7 +57,7 @@ async def recognize_file(
       if (len(out['matches']) == 0):
         raise HTTPException(status_code=404, detail='Track not found')
 
-      return { 'title': out['track']['title'], 'artist': out['track']['subtitle'] }
+      return out['track']
     finally:
       file.close()
 
